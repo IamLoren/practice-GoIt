@@ -1,8 +1,4 @@
-const monthNameEl = document.querySelector('.js-month');
-const dayNameEl = document.querySelector('.js-day');
-const dayNumEl = document.querySelector('.js-day-number');
-const yearEl = document.querySelector('.js-year');
-
+import {monthNameEl, dayNameEl, dayNumEl, yearEl} from './refs.js'
 const currentDate = new Date();
 
 const month = currentDate.toLocaleDateString('uk-UA', {month: "long"});
