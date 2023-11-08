@@ -1,7 +1,8 @@
-import {dayNumEl} from './refs.js'
+import { dayNumEl } from './refs.js'
+import { currentDate } from './calendar.js';
 
 document.addEventListener('DOMContentLoaded', renderPage)
-
+const timeZone = - currentDate.getTimezoneOffset() / 60;
 function renderPage() {
     createMarkup(dayNumEl)
 }
@@ -21,18 +22,18 @@ function createMarkup(rootSelector) {
 }
 
 function startClock(rootSelector) {
-    const hoursEl = rootSelector.querySelector('.js-clock__hours')
-    const minutesEl = rootSelector.querySelector('.js-clock__minutes')
-    const secondsEl = rootSelector.querySelector('.js-clock__seconds')
+    // const hoursEl = rootSelector.querySelector('.js-clock__hours')
+    // const minutesEl = rootSelector.querySelector('.js-clock__minutes')
+    // const secondsEl = rootSelector.querySelector('.js-clock__seconds')
     setInterval(() => {
         const currentTime = Date.now()
         let { hours, minutes, seconds } = convertMs(currentTime)
-        /*rootSelector.querySelector('.js-clock__hours').textContent = hours
-        rootSelector.querySelector('.js-clock__minutes').textContent = minutes
-        rootSelector.querySelector('.js-clock__seconds').textContent = seconds*/
-        hoursEl.textContent = hours
-        minutesEl.textContent = minutes
-        secondsEl.textContent = seconds
+        rootSelector.querySelector('.js-clock__hours').textContent = addPad(hours + timeZone)
+        rootSelector.querySelector('.js-clock__minutes').textContent = addPad(minutes)
+        rootSelector.querySelector('.js-clock__seconds').textContent = addPad(seconds)
+        // hoursEl.textContent = hours
+        // minutesEl.textContent = minutes
+        // secondsEl.textContent = seconds
     }, 1000)
 }
 
@@ -48,4 +49,9 @@ function convertMs(ms) {
     const seconds = Math.floor((((ms % day) % hour) % minute) / second);
 
     return { days, hours, minutes, seconds };
+}
+
+function addPad(value) {
+    return String(value).padStart(2, 0);
+    
 }
