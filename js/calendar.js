@@ -1,5 +1,4 @@
-import {monthNameEl, dayNameEl, dayNumEl, yearEl} from './refs.js'
-export const currentDate = new Date();
+import {monthNameEl, dayNameEl, dayNumEl, yearEl, currentDate} from './refs.js'
 
 const month = currentDate.toLocaleDateString('uk-UA', {month: "long"});
 const weekDay = currentDate.toLocaleDateString('uk-UA', {weekday: "long"});

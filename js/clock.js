@@ -1,5 +1,4 @@
-import { dayNumEl } from './refs.js'
-import { currentDate } from './calendar.js';
+import { dayNumEl, currentDate } from './refs.js'
 
 document.addEventListener('DOMContentLoaded', renderPage)
 const timeZone = - currentDate.getTimezoneOffset() / 60;
