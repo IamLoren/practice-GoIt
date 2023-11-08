@@ -58,17 +58,20 @@ a {
   padding: 10px;
   font-size: 30px;
   font-weight: bold;
+  text-transform: capitalize;
 }
 
 .day-name {
   font-size: 20px;
   color: darkgray;
+  text-transform: capitalize;
 }
 
 .day-number {
   font-size: 80px;
   margin: 0;
   font-weight: bold;
+
 }
 
 .year {
