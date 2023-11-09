@@ -8,6 +8,14 @@
 //   return 'hello world';
 // }
 
+
+// function greet2() {
+//     new Promise((res) => {
+//         setTimeout(() => res('Hello World'),2000);
+//     }).then(res => console.log(res))
+// }
+
+// greet2();
 //TODO:====================02==========================
 /**
  * Перероби код так, щоб усі дані збиралися
