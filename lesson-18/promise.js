@@ -21,7 +21,7 @@
  * одноразово і приходили у вигляді масиву
  */
 
-const getData = () =>
+/*const getData = () =>
   new Promise((res) => {
     setTimeout(() => {
       const data = 1;
@@ -55,7 +55,7 @@ const getLastData = () =>
       console.log(data);
       res(data);
     }, 1000);
-  });
+  });*/
 
 // vers1;
 // const array = [];
@@ -129,6 +129,7 @@ const getLastData = () =>
  * Якщо значення не парне, вирішуй проміс і повертай "odd" через 2 секунди.
  */
 
+/*
 const value = prompt('Paste value');
 
 function checkValue (value) {
@@ -144,3 +145,115 @@ function checkValue (value) {
   })
 }
 checkValue(value).then(console.log).catch(console.log);
+*/
+
+//ВПРАВИ
+// 1 - promise
+/*
+console.log('start')
+
+const promise1 = new Promise((resolve, reject) => {
+    console.log(1)
+});
+
+console.log('end')
+*/
+
+
+// 2 - then
+/*console.log('start');
+
+const promise1 = new Promise((resolve, reject) => {
+    console.log(1);
+    resolve(2);
+});
+
+promise1.then((res) => {
+    console.log(res);
+});
+
+console.log('end');*/
+
+// 3 - resolve
+/*console.log('start');
+
+const promise1 = new Promise((resolve, reject) => {
+    console.log(1);
+    resolve(2);
+    console.log(3);
+});
+
+promise1.then((resolve) => {
+    console.log(resolve);
+});
+
+console.log('end');*/
+
+// 4 - no resolve
+/*console.log('start');
+
+const promise1 = new Promise((resolve, reject) => {
+    console.log(1);
+});
+
+promise1.then((res) => {
+    console.log(2);
+});
+
+console.log('end');*/
+
+// 5 - promise and function
+/*console.log('start');
+
+const fn = () =>
+    new Promise((resolve, reject) => {
+        console.log(1);
+        resolve('success');
+    });
+
+console.log('middle');
+
+fn().then((res) => {
+    console.log(res);
+});
+
+console.log('end');*/
+
+// 6 - Fulfilling Promise
+/*console.log('start');
+
+Promise.resolve(1).then((res) => {
+    console.log(res);
+});
+
+Promise.resolve(2).then((res) => {
+    console.log(res);
+});
+
+console.log('end');*/
+
+// 7 - catch
+/*const promise = new Promise((resolve, reject) => {
+    reject(Error('Some Error Occurred'))
+})
+    .catch((error) => console.log(error))
+    .then((error) => console.log(error))*/
+// 8 - finally
+const promise = new Promise((res) => res(2));
+
+promise
+    .then((v) => {
+        console.log(v);
+        return v * 2;
+    })
+    .then((v) => {
+        console.log(v);
+        return v * 2;
+    })
+    .finally((v) => {
+        console.log(v);
+        return v * 2;
+    })
+    .then((v) => {
+        console.log(v);
+    });
