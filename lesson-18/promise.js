@@ -129,5 +129,18 @@ const getLastData = () =>
  * Якщо значення не парне, вирішуй проміс і повертай "odd" через 2 секунди.
  */
 
-// const value = prompt('Paste value');
-// checkValue(value).then(console.log).catch(console.log);
+const value = prompt('Paste value');
+
+function checkValue (value) {
+  return new Promise((res, rej) => {
+    if(!value || isNaN(value)) {
+      rej('error');
+    } 
+    
+
+    if(value % 2 === 0) setTimeout(() => res('even'), 1000);
+    
+    setTimeout(() => res('odd'), 2000);
+  })
+}
+checkValue(value).then(console.log).catch(console.log);
