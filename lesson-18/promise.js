@@ -8,7 +8,6 @@
 //   return 'hello world';
 // }
 
-
 // function greet2() {
 //     new Promise((res) => {
 //         setTimeout(() => res('Hello World'),2000);
@@ -58,7 +57,6 @@ const getLastData = () =>
     }, 1000);
   });
 
-
 // vers1;
 // const array = [];
 // getData()
@@ -82,18 +80,12 @@ const getLastData = () =>
 //     console.log(err);
 // });
 // vers2
-// Promise.all([getData(), getNewData(), getAnotherData(), getLastData()]).then(res => { 
+// Promise.all([getData(), getNewData(), getAnotherData(), getLastData()]).then(res => {
 //     console.log(res);
-// }).catch(console.log)   
+// }).catch(console.log)
 
 // vers2.2
 // Promise.all([getData(), getNewData(), getAnotherData(), getLastData()]).then(console.log).catch(console.log)
-
-
-
-
-
-
 
 //TODO:====================03==========================
 /**
@@ -104,6 +96,27 @@ const getLastData = () =>
  *
  * logCount повинна логувати кількість викликів
  */
+// const createPromise = (daley, callback) => {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//       return resolve();
+//     }, daley);
+//   }).then(() => {
+//     callback();
+//   });
+// };
+// const countWithDelay = (daley, times, interval) => {
+//   let count = 0;
+//   const logCount = () => {
+//     count += 1;
+//     if (count > times) {
+//       return;
+//     }
+//     setTimeout(logCount, interval);
+//     console.log("count: ", count);
+//   };
+//   createPromise(daley, logCount);
+// };
 
 // countWithDelay(3000, 5, 1000);
 
