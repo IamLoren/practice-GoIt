@@ -22,41 +22,78 @@
  * одноразово і приходили у вигляді масиву
  */
 
-// const getData = () =>
-//   new Promise((res) => {
-//     setTimeout(() => {
-//       const data = 1;
-//       console.log(data);
-//       res(data);
-//     }, 1000);
-//   });
+const getData = () =>
+  new Promise((res) => {
+    setTimeout(() => {
+      const data = 1;
+      console.log(data);
+      res(data);
+    }, 4000);
+  });
 
-// const getNewData = () =>
-//   new Promise((res) => {
-//     setTimeout(() => {
-//       const data = 2;
-//       console.log(data);
-//       res(data);
-//     }, 1000);
-//   });
+const getNewData = () =>
+  new Promise((res) => {
+    setTimeout(() => {
+      const data = 2;
+      console.log(data);
+      res(data);
+    }, 3000);
+  });
 
-// const getAnotherData = () =>
-//   new Promise((res) => {
-//     setTimeout(() => {
-//       const data = 3;
-//       console.log(data);
-//       res(data);
-//     }, 1000);
-//   });
+const getAnotherData = () =>
+  new Promise((res) => {
+    setTimeout(() => {
+      const data = 3;
+      console.log(data);
+      res(data);
+    }, 2000);
+  });
 
-// const getLastData = () =>
-//   new Promise((res) => {
-//     setTimeout(() => {
-//       const data = 4;
-//       console.log(data);
-//       res(data);
-//     }, 1000);
-//   });
+const getLastData = () =>
+  new Promise((res) => {
+    setTimeout(() => {
+      const data = 4;
+      console.log(data);
+      res(data);
+    }, 1000);
+  });
+
+
+// vers1;
+// const array = [];
+// getData()
+//     .then(res => {
+//         array.push(res);
+//         return getNewData()
+//     })
+//     .then(res => {
+//         array.push(res);
+//         return getAnotherData()
+//     })
+//     .then(res => {
+//         array.push(res);
+//         return getLastData()
+//     })
+//     .then(res => {
+//         array.push(res);
+//         console.log(array)
+//     })
+// .catch(err => {
+//     console.log(err);
+// });
+// vers2
+// Promise.all([getData(), getNewData(), getAnotherData(), getLastData()]).then(res => { 
+//     console.log(res);
+// }).catch(console.log)   
+
+// vers2.2
+// Promise.all([getData(), getNewData(), getAnotherData(), getLastData()]).then(console.log).catch(console.log)
+
+
+
+
+
+
 
 //TODO:====================03==========================
 /**
