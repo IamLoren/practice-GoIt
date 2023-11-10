@@ -3,11 +3,11 @@
 // - При виклику функції addTask зберігай завдання local storage і додавай його у розмітку
 // - При deleteTask знаходь завдання по тексту, та видаляй його і з local storage і з розмітки.
 
-import { formEl, ulEl } from './refs.js';
-import localStorageApi from './storage.js';
+import { formEl, ulEl } from "./refs.js";
+import localStorageApi from "./storage.js";
 
 let items = [];
-const TASK_KEY = 'ToDos';
+const TASK_KEY = "ToDos";
 
 // Function to create new task element, return LI element
 const createTodos = ({ id, text }) => {
@@ -30,7 +30,13 @@ function onSubmit(event) {
   const taskQuery = event.currentTarget.elements.todos.value.trim();
 
   if (!taskQuery) {
-    return alert('Task is empty!');
+    return alert("Task is empty!");
+  }
+  if (taskQuery !== "") {
+    const existItem = items.find(({ text }) => text === taskQuery);
+    if (existItem) {
+      return alert("Todos is exist!");
+    }
   }
 
   const toDoTask = {
@@ -47,12 +53,24 @@ function onSubmit(event) {
 function addTask(value) {
   const markUp = createTodos(value);
   items.push(value);
-  ulEl.insertAdjacentHTML('afterbegin', markUp);
+  ulEl.insertAdjacentHTML("afterbegin", markUp);
   localStorageApi.save(TASK_KEY, items);
 }
 
 // Function to delete a task from the list and delete from LS
-function deleteTask() {}
+function deleteTask(e) {
+  if (e.target.nodeName !== "BUTTON") {
+    return;
+  }
+
+  const toDoId = +e.target.dataset.id;
+
+  items = items.filter(({ id }) => id !== toDoId);
+
+  localStorageApi.save(TASK_KEY, items);
+  ulEl.innerHTML = "";
+  setTasksOnLoad();
+}
 
 // Function to get tasks from LS and set them into ul
 function setTasksOnLoad() {
@@ -62,11 +80,11 @@ function setTasksOnLoad() {
     const template = items
       .map((el) => createTodos(el))
       .reverse()
-      .join('');
+      .join("");
     ulEl.innerHTML = template;
   }
 }
 
-formEl.addEventListener('submit', onSubmit);
-ulEl.addEventListener('click', deleteTask);
-document.addEventListener('DOMContentLoaded', setTasksOnLoad);
+formEl.addEventListener("submit", onSubmit);
+ulEl.addEventListener("click", deleteTask);
+document.addEventListener("DOMContentLoaded", setTasksOnLoad);
