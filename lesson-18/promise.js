@@ -239,6 +239,7 @@ console.log('end');*/
     .catch((error) => console.log(error))
     .then((error) => console.log(error))*/
 // 8 - finally
+/*
 const promise = new Promise((res) => res(2));
 
 promise
@@ -256,4 +257,4 @@ promise
     })
     .then((v) => {
         console.log(v);
-    });
+    });*/
