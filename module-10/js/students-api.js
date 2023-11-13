@@ -20,3 +20,19 @@ export function getStudentById(id) {
             return res.json();
         })
 }
+
+export function addStudent(student) {
+    return fetch(`${BASE_URL}${ENDPOINT}`, {
+        method: 'POST', 
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify(student)
+    })
+    .then(res => {
+        if (!res.ok) {
+            throw new Error(res.status)
+        }
+        return res.json();
+    })
+}
