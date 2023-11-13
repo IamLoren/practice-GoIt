@@ -65,7 +65,9 @@ const student = {
 };
 ```
 
-```api
+### Api
+
+```js
 const BASE_URL = 'https://64c770650a25021fde927baf.mockapi.io/';
 const ENDPOINT = 'bc65-students';
 ```
