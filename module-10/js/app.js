@@ -1,7 +1,7 @@
-import { getStudents, getStudentById, addStudent } from "./students-api.js";
+import { getStudents, getStudentById, addStudent, updateStudent } from "./students-api.js";
 
 
-getStudents().then(console.log).catch(console.log);
+// getStudents().then(console.log).catch(console.log);
 // getStudentById(5).then(console.log).catch(console.log);
 
 const student = {
@@ -12,3 +12,5 @@ const student = {
     city: 'Lviv',
 };
 // addStudent(student).then(console.log).catch(console.log);
+updateStudent(5,{firstName: 'Igor', lastName: 'Olimpiskich'}).then(console.log).catch(console.log);
+getStudents().then(console.log).catch(console.log);

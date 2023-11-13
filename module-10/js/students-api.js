@@ -36,3 +36,20 @@ export function addStudent(student) {
         return res.json();
     })
 }
+
+export function updateStudent(id,data) {
+    return fetch(`${BASE_URL}${ENDPOINT}/${id}`, {
+        method: 'PUT', 
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(res => {
+        if (!res.ok) {
+            throw new Error(res.status)
+        }
+        return res.json();
+    })
+
+}
