@@ -5,8 +5,18 @@ export function getStudents() {
     return fetch(`${BASE_URL}${ENDPOINT}`)
         .then(res => {
             if (!res.ok) {
-            throw new Error(res.status)
+                throw new Error(res.status)
             }
             return res.json();
-    })
+        })
+}
+
+export function getStudentById(id) {
+    return fetch(`${BASE_URL}${ENDPOINT}/${id}`)
+        .then(res => {
+            if (!res.ok) {
+                throw new Error(res.status)
+            }
+            return res.json();
+        })
 }
