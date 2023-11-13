@@ -1,5 +1,3 @@
-import { getUsers } from "./json-placeholder.js";
+import { getStudents } from "./students-api.js";
 
-getUsers()
-.then(response => console.log(response.map(item => item.name)))
-.catch(err => console.log(err));
+getStudents().then(console.log).catch(console.log);
