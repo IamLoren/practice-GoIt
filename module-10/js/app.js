@@ -1,29 +1,30 @@
-import {
-  getStudents,
-  addStudent,
-  deleteStudent,
-} from "./students-api.js";
+import { getStudents, addStudent, deleteStudent } from "./students-api.js";
+import { renderMarkup, createStudentCard } from "./markup.js";
 
-import { listEl, openModalBtnEl } from "./refs.js";
+import { listEl, openModalBtnEl, paragrahEl, loaderEl } from "./refs.js";
 import { modal } from "./modal.js";
 
-let items = [];
-const defaultAvatar='https://mir-s3-cdn-cf.behance.net/project_modules/1400/10f13510774061.560eadfde5b61.png';
+export let items = [];
+const defaultAvatar =
+  "https://mir-s3-cdn-cf.behance.net/project_modules/1400/10f13510774061.560eadfde5b61.png";
 
-openModalBtnEl.addEventListener('click', onOpenModalBtnClick);
-document.addEventListener('DOMContentLoaded', onRenderPage);
+openModalBtnEl.addEventListener("click", onOpenModalBtnClick);
+document.addEventListener("DOMContentLoaded", onRenderPage);
+listEl.addEventListener("click", onDeleteStudent);
 
 function onOpenModalBtnClick() {
   modal.show();
 
-  document.querySelector('form').addEventListener('submit', onSubmit)
-
+  document.querySelector("form").addEventListener("submit", onSubmit);
 }
 
 function onSubmit(event) {
-  event.preventDefault()
+  event.preventDefault();
+  paragrahEl.classList.add("is-hidden");
+  loaderEl.classList.remove("is-hidden");
 
-  const { avatar, firstName, lastName, age, country, city } = event.currentTarget.elements;
+  const { avatar, firstName, lastName, age, country, city } =
+    event.currentTarget.elements;
 
   const student = {
     firstName: firstName.value,
@@ -32,65 +33,60 @@ function onSubmit(event) {
     country: country.value,
     city: city.value,
     avatar: avatar.value || defaultAvatar,
-  }
+  };
 
   addStudent(student)
-    .then(res => {
-      items.push(res)
+    .then((res) => {
+      items.push(res);
 
-      return createStudentCard(student)
-
+      return createStudentCard(res);
     })
-    .then(res => {
-      listEl.insertAdjacentHTML('beforeend', res)
+    .then((res) => {
+      listEl.insertAdjacentHTML("beforeend", res);
     })
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
     })
+    .finally(() => {
+      loaderEl.classList.add("is-hidden");
+    });
 
   event.currentTarget.reset();
   modal.close();
 }
 
-function createStudentCard(student) {
-  const { avatar, firstName, lastName, age, country, city, id } = student;
-
-  return `
-  <li class="photo-card">
-        <img
-          src="${avatar}"
-          alt="${firstName}"
-        />
-        <button data-id=${id} type="button" class="delete-btn js-delete-btn">&#9988;</button>
-
-        <div class="wrapper">
-          <div class="info" >
-          <b class="student-info">${firstName}</b>
-          <b class="student-info">${lastName}</b>
-          <b class="student-info">${age}</b>
-          </div>
-
-          <div class="info">
-          <b class="student-info">${country}</b>
-          <b class="student-info">${city}</b>
-          </div>
-        </div>
-      </li>
-  `;
-};
-
-function renderMarkup(data) {
-  const markup = data.map(student => createStudentCard(student)).join('')
-
-  listEl.innerHTML = markup;
-}
-
 function onRenderPage() {
+  loaderEl.classList.remove("is-hidden");
   getStudents()
-    .then(res => {
+    .then((res) => {
       items = [...res];
       console.log(items);
-      renderMarkup(items)
+      renderMarkup(items);
     })
     .catch(console.log)
+    .finally(() => {
+      loaderEl.classList.add("is-hidden");
+    });
+}
+
+function onDeleteStudent(event) {
+  if (event.target.nodeName !== "BUTTON") {
+    return;
+  }
+
+  loaderEl.classList.remove("is-hidden");
+
+  const index = event.target.dataset.id;
+
+  items = items.filter(({ id }) => id !== index);
+
+  deleteStudent(index)
+    .then((res) => {
+      console.log(res);
+      renderMarkup(items);
+    })
+    .catch(console.log)
+    .finally(() => {
+      loaderEl.classList.add("is-hidden");
+    });
 }
