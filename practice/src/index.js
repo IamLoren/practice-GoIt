@@ -1,1 +1,1 @@
-import './js/galleryTuiPagination';
+import './js/app';

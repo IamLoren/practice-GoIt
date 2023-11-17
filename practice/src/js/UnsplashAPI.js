@@ -9,17 +9,17 @@ export class UnsplashAPI {
   #API_KEY = 'LxvKVGJqiSe6NcEVZOaLXC-f2JIIWZaq_o0WrF8mwJc';
   #query = '';
 
-  // constructor() {
-  //   this.page = 1;
-  //   this.query = null;
-  // }
+  constructor() {
+    this.page = 1;
+    this.#query = null;
+  }
 
   // Запит для відображення картинок, при загрузці сторінки
-  getPopularPhotos(page) {
+  getPopularPhotos() {
     return axios.get(`${this.#BASE_URL}/search/photos`, {
       params: {
         query: 'random',
-        page,
+        page: this.page,
         per_page: 12,
         client_id: this.#API_KEY,
       },
@@ -27,11 +27,11 @@ export class UnsplashAPI {
   }
 
   // Запит картинок по ключовому слову
-  fetchPhotosByQuery(page) {
+  fetchPhotosByQuery() {
     return axios.get(`${this.#BASE_URL}/search/photos`, {
       params: {
         query: this.#query,
-        page,
+        page: this.page,
         per_page: 12,
         client_id: this.#API_KEY,
       },
