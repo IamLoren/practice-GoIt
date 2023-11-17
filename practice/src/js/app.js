@@ -54,6 +54,7 @@ const onRenderPage = async () => {
     container.classList.remove('is-hidden');
   } catch (err) {
     console.log(err);
+    Report.failure(err.message, 'Please reload!');
   }
 };
 
