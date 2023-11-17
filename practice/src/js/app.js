@@ -51,14 +51,14 @@ const onRenderPage = async () => {
     // console.log(response.data.total)
     paganation.reset(response.data.total);
     // Якщо все добре, додаємо пагінацію
-    container.classList.remove('is-hidden')
+    container.classList.remove('is-hidden');
   } catch (err) {
     console.log(err);
   }
 };
 
 // Метод для відображення на яку кнопку натиснули. Подальша підгрузка данних за допомгою пагінації
-const createPopularPaganation = async (event) => {
+const createPopularPaganation = async event => {
   // console.log(event.page)
   const currentPage = event.page;
   unsplashAPI.page = currentPage;
@@ -74,18 +74,34 @@ const createPopularPaganation = async (event) => {
   } catch (err) {
     console.log(err);
   }
-}
+};
 // Додаємо слухача на пагінацію
 paganation.on('afterMove', createPopularPaganation);
 // Запускаємо фун-ію
-document.addEventListener('DOMContentLoaded', onRenderPage)
+document.addEventListener('DOMContentLoaded', onRenderPage);
 /**
   |============================
   | //! Пошук по формі
   |============================
 */
 
-// Прописуємо повторно функцію для паганіції для інших запросів
+// Прописуємо повторно функцію для п aаганіції для інших запросів
+const createPhotosByQueryPagination = async event => {
+  const currentPage = event.page;
+  unsplashAPI.page = currentPage;
+  try {
+    // робимо запит
+    const response = await unsplashAPI.fetchPhotosByQuery();
+
+    // Після відповіді відмальовуємо розмітку
+    galleryEl.innerHTML = createGalleryCards(response.data.results);
+
+    // Вказуємо скільки кнопок пагінації відмалювати
+    // console.log(response.data.total)
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 // Фун-ція для пошуку з інпуту
 const onSearchFormSubmit = async event => {
@@ -94,6 +110,7 @@ const onSearchFormSubmit = async event => {
   // Достаємо значення інпуту
   const searchQuery =
     event.currentTarget.elements['user-search-query'].value.trim();
+  unsplashAPI.page = 1;
 
   // Додаємо через сетер
   unsplashAPI.query = searchQuery;
@@ -107,10 +124,11 @@ const onSearchFormSubmit = async event => {
   }
 
   // Відписуємось від попередніх пагінацій
+  paganation.off('afterMove', createPopularPaganation);
 
   // Робимо запрос по ключовому слову
   try {
-    const response = await unsplashAPI.fetchPhotosByQuery(page);
+    const response = await unsplashAPI.fetchPhotosByQuery();
 
     // Перевірка на невірний ввод!
     if (response.data.results.length === 0) {
@@ -138,7 +156,7 @@ const onSearchFormSubmit = async event => {
     }
 
     // Оновлюємо пагінацію, щоб при новому запросі, відображалась з 1 сторінки
-    pagination.reset(response.data.total);
+    paganation.reset(response.data.total);
 
     // Додаємо відображення пагінації
     container.classList.remove('is-hidden');
@@ -147,7 +165,7 @@ const onSearchFormSubmit = async event => {
     galleryEl.innerHTML = createGalleryCards(response.data.results);
 
     // Робимо підписку на нову пагінацію, для подальших запросів
-    pagination.on('afterMove', createPhotosByQueryPagination);
+    paganation.on('afterMove', createPhotosByQueryPagination);
   } catch (err) {
     console.log(err);
   }
