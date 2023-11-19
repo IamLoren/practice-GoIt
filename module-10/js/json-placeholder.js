@@ -1,10 +1,10 @@
 const BASE_URL = 'https://jsonplaceholder.typicode.com';
 
-export function getUsers() { 
+export function getUsers(limit, page) { 
 const END_POINT = 'users';
 const searchParams = new URLSearchParams({
-    _limit: 5,
-    _page: 2,
+    _limit: limit,
+    _page: page,
 })
 
 return fetch(`${BASE_URL}/${END_POINT}?${searchParams}`)
